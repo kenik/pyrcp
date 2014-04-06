@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if error %}<p class="notice"><strong>Error:</strong> {{ error }}{% endif %}
+    <!-- Messages -->
+    <!-- Sub menu -->
+        <DIV id="submenu">Menu:
+            <A class="sub-menu-item current-sub-menu" href="{{ url_for('my_acc') }}">View Account</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Change Password</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Change E-mail</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Change Gender</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Transfer Credits</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Credit Transfer History</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Go to Shopping Cart</A>
+        </DIV>
+        <!-- Page menu -->
+		<!-- Credit balance -->
+        <H2>Viewing Account</H2>
+        <TABLE class="vertical-table">
+          <TBODY>
+        {% if user %}
+          <TR>
+            <TH>Username</TH>
+            <TD>{{ user.1 }}</TD>
+            <TH>Account ID</TH>
+            <TD><SPAN class="not-applicable">{{ user.0 }}</SPAN></TD>
+          </TR>
+          <TR>
+            <TH>E-mail</TH>
+            <TD>{{ user.3 }}</TD>
+            <TH>Group ID</TH>
+            <TD>{{ user.4 }}</TD>
+          </TR>
+          <TR>
+            <TH>Gender</TH>
+            <TD>
+            {% if user.2 %}
+                Male
+            {% else %}
+                Female
+            {% endif %}
+            </TD>
+            <TH>State</TH>
+            <TD><SPAN
+              class="account-state state-normal">{{ user.5 }}<SPAN></SPAN></SPAN></TD>
+          </TR>
+          <TR>
+            <TH>Login Count</TH>
+            <TD>{{ user.6 }}</TD>
+            <TH>Credit Balance</TH>
+            <TD>0</TD>
+          </TR>
+          <TR>
+            <TH>Birthdate</TH>
+            <TD colspan="3">{{ user.7 }}</TD>
+          </TR>
+          <TR>
+            <TH>Last Login Date</TH>
+            <TD colspan="3"><SPAN class="not-applicable">{{ user.8 }}</SPAN></TD>
+          </TR>
+          <TR>
+            <TH>Last Used IP</TH>
+            <TD colspan="3"><SPAN class="not-applicable">{{ user.9 }}</SPAN>
+            					 </TD>
+          </TR>
+        {% endif %}
+        </TBODY>
+        </TABLE>
+        <H3>Characters on FluxRO</H3>
+        {% if chars %}
+        <TABLE class="horizontal-table">
+              <TBODY>
+              <TR>
+                <TH>Rank</TH>
+                <TH>Character Name</TH>
+                <TH>Job Class</TH>
+                <TH colspan="2">Guild Name</TH>
+                <TH>Base Level</TH>
+                <TH>Job Level</TH>
+                <TH>Base Experience</TH>
+                <TH>Job Experience</TH></TR>
+            {% for char in chars %}
+              <TR>
+                <TD align="right">*</TD>
+                <TD><STRONG>{{ char.0 }}</STRONG></TD>
+                <TD>{{ get_class_name(char.1) }}</TD>
+                {% if char.2 %}
+                <TD width="24"><IMG src="http://brianluau.users.sourceforge.net/demo/fluxcp/guild/emblem/?login=Demo-RO&amp;charmap=Demo-RO&amp;id=7"></TD>
+                <TD>{{ char.2 }}</TD>
+                {% else %}
+                <TD colspan="2">None</TD>
+                {% endif %}
+                <TD>{{ char.3 }}</TD>
+                <TD>{{ char.4 }}</TD>
+                <TD>{{ char.5 }}</TD>
+                <TD>{{ char.6 }}</TD>
+              </TR>
+            {% endfor %}
+            </TBODY></TABLE>
+        {% else %}
+            <P>This account has no characters on {{ app.config['SERVERNAME'] }}.</P>
+        {% endif %}
+        <H3>Storage Items of test2</H3>
+        <P>There are no storage items on this account.</P>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+  <ul class=entries>
+    <li><h2>Welcome to {{ app.config['SERVERNAME'] }}
+    {% if user != None %}
+        , {{ user.id }}
+    {% endif %}
+    </h2>
+  </ul>
+{% endblock %}

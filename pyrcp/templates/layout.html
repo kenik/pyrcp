@@ -1,0 +1,235 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>{{app.config['SERVERNAME']}}</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='flux.css') }}" type="text/css" media="screen" title="" charset="utf-8">
+		<link href="{{ url_for('static', filename='unitip.css') }}" rel="stylesheet" type="text/css" media="screen" title="" charset="utf-8">
+		<!--[if IE]>
+		<link rel="stylesheet" href="{{ url_for('static', filename='ie.css') }}" type="text/css" media="screen" title="" charset="utf-8" />
+		<![endif]-->
+		<!--[if lt IE 7]>
+		<script src="{{ url_for('static', filename='ie7.js') }}" type="text/javascript"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='flux.unitpngfix.js') }}"></script>
+		<![endif]-->
+		<script type="text/javascript" src="{{ url_for('static', filename='jquery-1.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='flux.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='flux_002.js') }}"></script>
+	</head>
+	<body>
+		<table cellpadding="0" cellspacing="0" width="100%">
+			<tbody><tr>
+				<!-- Header -->
+				<td bgcolor="#8ebceb" width="20"></td>
+				<td colspan="3" bgcolor="#8ebceb">
+					<a href="{{ url_for('show_main') }}">
+						<img src="{{ url_for('static', filename='img/logo.png') }}" id="logo">
+					</a>
+				</td>
+				<td bgcolor="#8ebceb" width="20"></td>
+			</tr>
+			<tr>
+				<!-- Spacing between header and content -->
+				<td colspan="3" height="20"></td>
+			</tr>
+			<tr>
+				<td style="padding: 10px"></td>
+				<td width="198">
+					<!-- Sidebar -->
+					<table id="sidebar">
+						<tbody><tr>
+							<td><img src="{{ url_for('static', filename='img/sidebar_complete_top.gif') }}"></td>
+						</tr>
+								<tr>
+							<th class="menuitem"><strong>Main Menu</strong></th>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Home</span>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<th class="menuitem"><strong>Account</strong></th>
+						</tr>
+                    {% if not app.logged_in %}
+						<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('registration') }}">
+									<span>Register</span>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('login') }}">
+									<span>Login</span>
+								</a>
+							</td>
+						</tr>
+                    {% else %}
+						<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('my_acc') }}">
+									<span>My account</span>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('logout') }}">
+									<span>Logout</span>
+								</a>
+							</td>
+						</tr>
+                    {% endif %}
+						<tr>
+							<th class="menuitem"><strong>Donations</strong></th>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Purchase</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Donate</span>
+								</a>
+							</td>
+						</tr>
+										<tr>
+							<th class="menuitem"><strong>Information</strong></th>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Server Info.</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Server Status</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>WoE Hours</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Castles</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Who's Online</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Map Statistics</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('ranking_guild') }}">
+									<span>Ranking Info.</span>
+								</a>
+							</td>
+						</tr>
+										<tr>
+							<th class="menuitem"><strong>Database</strong></th>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Item Database</span>
+								</a>
+							</td>
+						</tr>
+							<tr>
+							<td class="menuitem">
+								<a href="{{ url_for('show_main') }}">
+									<span>Mob Database</span>
+								</a>
+							</td>
+						</tr>
+											<tr>
+							<td><img src="{{ url_for('static', filename='img/sidebar_complete_bottom.gif') }}"></td>
+						</tr>
+					</tbody></table>
+				</td>
+				<!-- Spacing between sidebar and content -->
+				<td style="padding: 10px"></td>
+				<td width="100%">
+
+					<!-- Content -->
+					<table id="content" cellpadding="0" cellspacing="0" width="100%">
+						<tbody><tr>
+							<td width="18"><img src="{{ url_for('static', filename='img/content_tl.gif') }}" style="display: block"></td>
+							<td bgcolor="#f5f5f5"></td>
+							<td width="18"><img src="{{ url_for('static', filename='img/content_tr.gif') }}" style="display: block"></td>
+						</tr>
+
+						<tr>
+							<td bgcolor="#f5f5f5"></td>
+							<td bgcolor="#f5f5f5">
+
+								<!-- Messages -->
+
+								<!-- Sub menu -->
+
+								<!-- Page menu -->
+
+								<!-- Credit balance -->
+								{% for message in get_flashed_messages() %}
+                                    <p class="message">{{ message }}</p>
+                                {% endfor %}
+                                {% block body %}{% endblock %}
+							</td>
+							<td bgcolor="#f5f5f5"></td>
+						</tr>
+
+						<tr>
+							<td><img src="{{ url_for('static', filename='img/content_bl.gif') }}" style="display: block"></td>
+							<td bgcolor="#f5f5f5"></td>
+							<td><img src="{{ url_for('static', filename='img/content_br.gif') }}" style="display: block"></td>
+						</tr>
+					</tbody></table>
+				</td>
+				<!-- Spacing between content and horizontal end-of-page -->
+				<td style="padding: 10px"></td>
+			</tr>
+						<tr>
+				<td colspan="3"></td>
+				<td id="copyright">
+					<p>
+						<strong>Powered by Python Control Panel (0.0.1)</strong>
+						— Copyright © 2014 kenik.
+					</p>
+					<p>
+						<strong>Designed by Flux CP team</strong>
+					</p>
+				</td>
+				<td></td>
+			</tr>
+			</tbody></table>
+
+		<br>
+</body></html>

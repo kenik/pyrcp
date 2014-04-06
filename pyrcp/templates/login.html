@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div id="submenu">
+        Menu:
+        <a class="sub-menu-item current-sub-menu" href="{{ url_for('login') }}">Login</a>
+        /
+        <a class="sub-menu-item" href="{{ url_for('show_main') }}">Register</a>
+        /
+        <a class="sub-menu-item" href="{{ url_for('show_main') }}">Reset Password</a>
+    </div>
+    <h2>Log In</h2>
+    <p>
+        Don't have an account?
+        <a href="{{ url_for('show_main') }}">Create one!</a>
+    </p>
+    {% if error %}
+        <p class="message">{{ error }}</p>
+    {% endif %}
+    <form class="generic-form" method="post" action="{{ url_for('login') }}">
+        <input type="hidden" value="{{app.config['SERVERNAME']}}" name="server">
+        <table class="generic-form-table">
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="login_username">Your Username</label>
+                    </th>
+                    <td>
+                        <input id="login_username" type="text" value="{{ uname }}" name="userid">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="login_password">Your Password</label>
+                    </th>
+                    <td>
+                        <input id="login_password" type="password" name="user_pass">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Log In">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

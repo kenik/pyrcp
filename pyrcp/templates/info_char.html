@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if error %}<p class="notice"><strong>Error:</strong> {{ error }}{% endif %}
+    <!-- Messages -->
+    <!-- Sub menu -->
+        <!--DIV id="submenu">Menu:
+            <A class="sub-menu-item current-sub-menu" href="{{ url_for('my_acc') }}">View Account</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Change Password</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Change E-mail</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Change Gender</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Transfer Credits</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Credit Transfer History</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Go to Shopping Cart</A>
+        </DIV-->
+        <!-- Page menu -->
+		<!-- Credit balance -->
+        <H2>Character Info</H2>
+        <TABLE class="vertical-table">
+          <TBODY>
+        {% if char %}
+          <TR>
+            <TH>Char name</TH>
+            <TD colspan="2">{{ char.1 }}</TD>
+            <TH>Class</TH>
+            <TD>{{ get_class_name(char.2) }}</TD>
+          </TR>
+          <TR>
+            <TH>Base Level</TH>
+            <TD colspan="2">{{ char.4 }}</TD>
+            <TH>Base Exp</TH>
+            <TD>{{ char.6 }}</TD>
+          </TR>
+          <TR>
+            <TH>Job Level</TH>
+            <TD colspan="2">{{ char.5 }}
+            </TD>
+            <TH>Job exp</TH>
+            <TD>{{ char.7 }}</TD>
+          </TR>
+          <TR>
+            <TH>PvP Kills</TH>
+            <TD colspan="2">{{ char.9 }}
+            </TD>
+            <TH>PvP Deaths</TH>
+            <TD>{{ char.10 }}</TD>
+          </TR>
+          <TR>
+            <TH>WoE Kills</TH>
+            <TD colspan="2">{{ char.11 }}
+            </TD>
+            <TH>WoE Deaths</TH>
+            <TD>{{ char.12 }}</TD>
+          </TR>
+          <TR>
+            <TH>Guild</TH>
+            {% if char.3 %}
+                <TD width="24"><IMG src="http://brianluau.users.sourceforge.net/demo/fluxcp/guild/emblem/?login=Demo-RO&amp;charmap=Demo-RO&amp;id=7"></TD>
+                <TD><a href="{{ url_for('show_guild', guild_id=char.3) }}">{{ get_guild_name(char.3) }}</a></TD>
+            {% else %}
+            <TD colspan="2">None
+            </TD>
+            {% endif %}
+            <TH>Party</TH>
+            <TD>{{ get_party_name(char.8) }}</TD>
+          </TR>
+          <TR>
+            <TH>Online</TH>
+            <TD colspan="2">{% if char.13 %}Online{% else %}Offline{% endif %}
+            </TD>
+            <TH></TH>
+            <TD></TD>
+          </TR>
+        {% endif %}
+        </TBODY>
+        </TABLE>
+{% endblock %}

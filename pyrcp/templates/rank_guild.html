@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if error %}<p class="notice"><strong>Error:</strong> {{ error }}{% endif %}
+    <!-- Messages -->
+    <!-- Sub menu -->
+        <DIV id="submenu">Menu:
+            <A class="sub-menu-item" href="{{ url_for('ranking_char') }}">Character Ranking</A> /
+            <A class="sub-menu-item current-sub-menu" href="{{ url_for('ranking_guild') }}">Guild Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Zeny Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Death Ranking</A>
+        </DIV>
+        <!-- Page menu -->
+		<!-- Credit balance -->
+        <H2>Guild Ranking</H2>
+        <H3>Characters on FluxRO</H3>
+        {% if guilds %}
+        <TABLE class="horizontal-table">
+              <TBODY>
+              <TR>
+                <TH>Rank</TH>
+                <TH>Guild Name</TH>
+                <TH>Guildmaster</TH>
+                <TH>Guild Level</TH>
+                <TH>Members</TH>
+                <TH>Average Level</TH>
+                <TH>Experience</TH></TR>
+            {% for guild in guilds %}
+              {% if loop.first %}<TR class="top-ranked"  title="{{ guild.1 }} is the top ranked guild!" >
+              {% else %}<TR>{% endif %}
+                <TD align="right">{{ loop.index }}</TD>
+                <TD><STRONG><a href="{{ url_for('show_guild', guild_id=guild.0) }}" title="{{ guild.1 }}">{{ guild.1 }}</a></STRONG></TD>
+                <TD>{{ guild.3 }}</TD>
+                <TD>{{ guild.4 }}</TD>
+                <TD>{{ get_guild_members_count(guild.0) }}</TD>
+                <TD>{{ guild.5 }}</TD>
+                <TD>{{ guild.6 }}</TD>
+              </TR>
+            {% endfor %}
+            </TBODY></TABLE>
+        {% else %}
+            <P>Currently, there are no guilds on {{ app.config['SERVERNAME'] }}.</P>
+        {% endif %}
+{% endblock %}1
