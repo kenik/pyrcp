@@ -4,25 +4,7 @@ import unittest
 import tempfile
 
 class PyrcpTestCase(unittest.TestCase):
-    '''
-    def setUp(self):
-        self.db_fd, pyrcp.app.config['DATABASE'] = tempfile.mkstemp()
-        self.db_fd, pyrcp.app.config.update(dict(
-            DATABASE=tempfile.mkstemp(),
-            DEBUG=True,
-            SECRET_KEY='development key',
-            USERNAME='admin',
-            PASSWORD='default'
-        ))
 
-        pyrcp.app.config['TESTING'] = True
-        self.app = pyrcp.app.test_client()
-        init_db()
-
-    def tearDown(self):
-        os.close(self.db_fd)
-        os.unlink(pyrcp.app.config['DATABASE'])
-    '''
     app = pyrcp.app.run()
 
     def login(self, username, password):
@@ -47,3 +29,4 @@ class PyrcpTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
