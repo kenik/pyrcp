@@ -13,7 +13,6 @@
             <A class="sub-menu-item" href="{{ url_for('ranking_woe_kills') }}">WoE Kills Ranking</A>
         </DIV>
         <!-- Page menu -->
-		<!-- Credit balance -->
         <H2>Character Ranking</H2>
         {% if chars %}
         <TABLE class="horizontal-table">
@@ -47,4 +46,4 @@
         {% else %}
             <P>Currently, there are no chars on {{ app.config['SERVERNAME'] }}.</P>
         {% endif %}
-{% endblock %}1
+{% endblock %}

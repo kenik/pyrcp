@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-    {% if error %}<p class="notice"><strong>Error:</strong> {{ error }}{% endif %}
     <!-- Messages -->
     <!-- Sub menu -->
         <DIV id="submenu">Menu:
@@ -13,7 +12,6 @@
             <A class="sub-menu-item" href="{{ url_for('ranking_woe_kills') }}">WoE Kills Ranking</A>
         </DIV>
         <!-- Page menu -->
-		<!-- Credit balance -->
         <H2>Guild Ranking</H2>
         <H3>Characters on FluxRO</H3>
         {% if guilds %}
