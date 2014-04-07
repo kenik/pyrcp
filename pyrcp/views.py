@@ -58,7 +58,7 @@ def my_acc():
         error = "You have no characters yet"
         return render_template('my_acc.html', error=error, app=app, chars=chars)
     chars = cursor.fetchall()
-    sql = "SELECT `account_id`, `userid`, `sex`, `email`, `group_id`, `state`, `logincount`, `birthdate`, `lastlogin`, `last_ip` from `login` where `account_id`='%s' "
+    sql = "SELECT `account_id`, `userid`, `sex`, `email`, `group_id`, `state`, `logincount`, `birthdate`, `lastlogin`, `last_ip` from `login` where `account_id`=%s "
     cur = cursor.execute(sql % (current_user.get_acc_id()))
     #user = get_acc_info(userid)
     user = cursor.fetchone()
