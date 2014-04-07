@@ -33,8 +33,8 @@ class User(UserMixin):
         #(user,hased_password) of users.
         db = pydb.get_db()
         cursor = db.cursor()
-        sql = "SELECT `userid`, `user_pass`, `account_id` FROM `login` WHERE `userid`=%s"
-        cur = cursor.execute(sql, (userid))
+        sql = "SELECT `userid`, `user_pass`, `account_id` FROM `login` WHERE `userid`='%s'"
+        cur = cursor.execute(sql % (userid))
         users = cursor.fetchall()
         for user in users:
             if user[0] == userid:

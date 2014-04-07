@@ -123,8 +123,8 @@ def get_class_name(classid):
 def get_party_name(party_id):
     db = pydb.get_db()
     cursor = db.cursor()
-    sql = "SELECT `name` FROM `party` WHERE `party_id` = %s "
-    cur = cursor.execute(sql, (party_id))
+    sql = "SELECT `name` FROM `party` WHERE `party_id` = '%s' "
+    cur = cursor.execute(sql % (party_id))
     if cur == 1:
         party = cursor.fetchone()
         name = party[0]
@@ -154,8 +154,8 @@ def get_guilds_ranks():
 def get_guild_members_count(guild_id):
     db = pydb.get_db()
     cursor = db.cursor()
-    sql = "SELECT COUNT(`char_id`) FROM `char` WHERE `guild_id`=%s "
-    cur = cursor.execute(sql, (guild_id))
+    sql = "SELECT COUNT(`char_id`) FROM `char` WHERE `guild_id`='%s' "
+    cur = cursor.execute(sql % (guild_id))
     if cur:
         count = cursor.fetchone()
     return count[0]
@@ -171,8 +171,8 @@ def get_guild_members(guild_id):
         chars[4] - Job Level
         chars[5] - Online state
     '''
-    sql = "SELECT `char_id`, `name`, `class`, `base_level`, `job_level`, `online`  FROM `char` WHERE `guild_id`=%s "
-    cur = cursor.execute(sql, (guild_id))
+    sql = "SELECT `char_id`, `name`, `class`, `base_level`, `job_level`, `online`  FROM `char` WHERE `guild_id`='%s' "
+    cur = cursor.execute(sql % (guild_id))
     if cur:
         chars = cursor.fetchall()
     return chars
@@ -197,8 +197,8 @@ def get_guild_info(guild_id):
 def get_guild_name(guild_id):
     db = pydb.get_db()
     cursor = db.cursor()
-    sql = "SELECT `name` FROM `guild` WHERE `guild_id` = %s "
-    cur = cursor.execute(sql, (guild_id))
+    sql = "SELECT `name` FROM `guild` WHERE `guild_id` = '%s' "
+    cur = cursor.execute(sql % (guild_id))
     if cur == 1:
         guildd = cursor.fetchone()
         guild = guildd[0]
@@ -206,7 +206,7 @@ def get_guild_name(guild_id):
         guild = "None"
     return guild
 
-def get_chars_ranks(start=0,count=20):
+def get_chars_ranks(start=0,count=20, order='`base_level`'):
     db = pydb.get_db()
     cursor = db.cursor()
     '''
@@ -217,9 +217,10 @@ def get_chars_ranks(start=0,count=20):
         chars[4] - Base Level
         chars[5] - Job Level
         chars[6] - Online state
+        chars[7] - Zeny amount
     '''
-    sql = "SELECT `char_id`, `name`, `class`, `guild_id`, `base_level`, `job_level`, `online`  FROM `char` ORDER BY `base_level` DESC LIMIT %s, %s "
-    cur = cursor.execute(sql, (start, count))
+    sql = "SELECT `char_id`, `name`, `class`, `guild_id`, `base_level`, `job_level`, `online`, `zeny`  FROM `char` ORDER BY %s DESC LIMIT %s, %s "
+    cur = cursor.execute(sql % (order, start, count))
     chars = cursor.fetchall()
     return chars
 
@@ -242,7 +243,7 @@ def get_char_info(char_id):
         chars[12] - Deaths on WoE
         chars[13] - Online state
     '''
-    sql = "SELECT `char_id`, `name`, `class`, `guild_id`, `base_level`, `job_level`, `base_exp`, `job_exp`, `party_id`, `pvp_kills`, `pvp_death`, `woe_kills`, `woe_death`, `online`  FROM `char` WHERE `char_id`= %s"
-    cur = cursor.execute(sql, (char_id))
+    sql = "SELECT `char_id`, `name`, `class`, `guild_id`, `base_level`, `job_level`, `base_exp`, `job_exp`, `party_id`, `pvp_kills`, `pvp_death`, `woe_kills`, `woe_death`, `online`  FROM `char` WHERE `char_id`= '%s'"
+    cur = cursor.execute(sql % (char_id))
     chars = cursor.fetchone()
     return chars
