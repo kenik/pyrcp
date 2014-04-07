@@ -218,8 +218,12 @@ def get_chars_ranks(start=0,count=20, order='`base_level`'):
         chars[5] - Job Level
         chars[6] - Online state
         chars[7] - Zeny amount
+        chars[8] - Kills in PvP
+        chars[9] - Deaths in PvP
+        chars[10] - Kills on WoE
+        chars[11] - Deaths on WoE
     '''
-    sql = "SELECT `char_id`, `name`, `class`, `guild_id`, `base_level`, `job_level`, `online`, `zeny`  FROM `char` ORDER BY %s DESC LIMIT %s, %s "
+    sql = "SELECT `char_id`, `name`, `class`, `guild_id`, `base_level`, `job_level`, `online`, `zeny`, `pvp_kills`, `pvp_death`, `woe_kills`, `woe_death`  FROM `char` ORDER BY %s DESC LIMIT %s, %s "
     cur = cursor.execute(sql % (order, start, count))
     chars = cursor.fetchall()
     return chars
