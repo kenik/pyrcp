@@ -6,8 +6,11 @@
         <DIV id="submenu">Menu:
             <A class="sub-menu-item" href="{{ url_for('ranking_char') }}">Character Ranking</A> /
             <A class="sub-menu-item current-sub-menu" href="{{ url_for('ranking_guild') }}">Guild Ranking</A> /
-            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Zeny Ranking</A> /
-            <A class="sub-menu-item" href="{{ url_for('my_acc') }}">Death Ranking</A>
+            <A class="sub-menu-item" href="{{ url_for('ranking_zeny') }}">Zeny Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_pvp_death') }}">PvP Death Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_pvp_kills') }}">PvP Kills Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_woe_death') }}">WoE Death Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_woe_kills') }}">WoE Kills Ranking</A>
         </DIV>
         <!-- Page menu -->
 		<!-- Credit balance -->
@@ -40,4 +43,4 @@
         {% else %}
             <P>Currently, there are no guilds on {{ app.config['SERVERNAME'] }}.</P>
         {% endif %}
-{% endblock %}1
+{% endblock %}

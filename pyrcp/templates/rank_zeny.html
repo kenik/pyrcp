@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if error %}<p class="notice"><strong>Error:</strong> {{ error }}{% endif %}
+    <!-- Messages -->
+    <!-- Sub menu -->
+        <DIV id="submenu">Menu:
+            <A class="sub-menu-item" href="{{ url_for('ranking_char') }}">Character Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_guild') }}">char Ranking</A> /
+            <A class="sub-menu-item current-sub-menu" href="{{ url_for('ranking_zeny') }}">Zeny Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_pvp_death') }}">PvP Death Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_pvp_kills') }}">PvP Kills Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_woe_death') }}">WoE Death Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_woe_kills') }}">WoE Kills Ranking</A>
+        </DIV>
+        <!-- Page menu -->
+		<!-- Credit balance -->
+        <H2>Character Ranking</H2>
+        {% if chars %}
+        <TABLE class="horizontal-table">
+              <TBODY>
+              <TR>
+                <TH>Rank</TH>
+                <TH>Name</TH>
+                <TH>Zeny</TH>
+                <TH>Job Class</TH>
+                <TH>Base Level</TH>
+                <TH>Job Level</TH>
+                <TH colspan="2">Guild</TH></TR>
+            {% for char in chars %}
+              {% if loop.first %}<TR class="top-ranked"  title="{{ char.1 }} is the top ranked char!" >
+              {% else %}<TR>{% endif %}
+                <TD align="right">{{ loop.index }}</TD>
+                <TD><STRONG><a href="{{ url_for('show_char', char_id=char.0) }}" title="{{ char.1 }}">{{ char.1 }}</a></STRONG></TD>
+                <TD>{{ char.7 }}</TD>
+                <TD>{{ get_class_name(char.2) }}</TD>
+                <TD>{{ char.4 }}</TD>
+                <TD>{{ char.5 }}</TD>
+                {% if char.2 %}
+                <TD width="24"><IMG src="http://brianluau.users.sourceforge.net/demo/fluxcp/guild/emblem/?login=Demo-RO&amp;charmap=Demo-RO&amp;id=7"></TD>
+                <TD>{{ get_guild_name(char.3) }}</TD>
+                {% else %}
+                <TD colspan="2">None</TD>
+                {% endif %}
+              </TR>
+            {% endfor %}
+            </TBODY></TABLE>
+        {% else %}
+            <P>Currently, there are no chars on {{ app.config['SERVERNAME'] }}.</P>
+        {% endif %}
+{% endblock %}1
