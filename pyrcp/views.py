@@ -14,10 +14,6 @@ def load_user_i():
     else:
         user = False
     app.logged_in = user
-if current_user:
-    app.logged_in = True
-else:
-    app.logged_in = False
 
 # Шаблоны и страницы
 @app.route('/')
@@ -55,15 +51,15 @@ def my_acc():
         userid = current_user.get_acc_id()
     db = pydb.get_db()
     cursor = db.cursor()
-    sql = "SELECT `name`, `class`, `guild_id`, `base_level`, `job_level`, `base_exp`, `job_exp` from `char` where `account_id`=%s "
-    cur = cursor.execute(sql, (userid))
+    sql = "SELECT `name`, `class`, `guild_id`, `base_level`, `job_level`, `base_exp`, `job_exp` from `char` where `account_id`='%s' "
+    cur = cursor.execute(sql % (userid))
     if cur == 0:
         chars = None
         error = "You have no characters yet"
         return render_template('my_acc.html', error=error, app=app, chars=chars)
     chars = cursor.fetchall()
-    sql = "SELECT `account_id`, `userid`, `sex`, `email`, `group_id`, `state`, `logincount`, `birthdate`, `lastlogin`, `last_ip` from `login` where `account_id`=%s "
-    cur = cursor.execute(sql, (current_user.get_acc_id()))
+    sql = "SELECT `account_id`, `userid`, `sex`, `email`, `group_id`, `state`, `logincount`, `birthdate`, `lastlogin`, `last_ip` from `login` where `account_id`='%s' "
+    cur = cursor.execute(sql % (current_user.get_acc_id()))
     #user = get_acc_info(userid)
     user = cursor.fetchone()
     app.jinja_env.globals.update(get_class_name=get_class_name)
@@ -131,3 +127,12 @@ def show_char(char_id):
     app.jinja_env.globals.update(get_party_name=get_party_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
     return render_template('info_char.html', error=error, app=app, char=char)
+
+@app.route('/ranking/zeny')
+def ranking_zeny():
+    error = None
+    chars = get_chars_ranks(0,20, '`zeny`')
+    app.jinja_env.globals.update(get_class_name=get_class_name)
+    app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    return render_template('rank_zeny.html', error=error, app=app, chars=chars)
+
