@@ -99,14 +99,49 @@ def logout():
 def ranking_guild():
     guilds = get_guilds_ranks()
     app.jinja_env.globals.update(get_guild_members_count=get_guild_members_count)
-    return render_template('rank_guild.html', error=error, app=app, guilds=guilds)
+    return render_template('rank_guild.html', app=app, guilds=guilds)
 
 @app.route('/ranking/char')
 def ranking_char():
     chars = get_chars_ranks(0,20)
     app.jinja_env.globals.update(get_class_name=get_class_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
-    return render_template('rank_char.html', error=error, app=app, chars=chars)
+    return render_template('rank_char.html', app=app, chars=chars)
+
+@app.route('/ranking/zeny')
+def ranking_zeny():
+    chars = get_chars_ranks(0,20, '`zeny`')
+    app.jinja_env.globals.update(get_class_name=get_class_name)
+    app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    return render_template('rank_zeny.html', app=app, chars=chars)
+
+@app.route('/ranking/pvp_death')
+def ranking_pvp_death():
+    chars = get_chars_ranks(0,20, '`pvp_death`')
+    app.jinja_env.globals.update(get_class_name=get_class_name)
+    app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    return render_template('rank_pvp_death.html', app=app, chars=chars)
+
+@app.route('/ranking/pvp_kills')
+def ranking_pvp_kills():
+    chars = get_chars_ranks(0,20, '`pvp_kills`')
+    app.jinja_env.globals.update(get_class_name=get_class_name)
+    app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    return render_template('rank_pvp_kills.html', app=app, chars=chars)
+
+@app.route('/ranking/woe_death')
+def ranking_woe_death():
+    chars = get_chars_ranks(0,20, '`woe_death`')
+    app.jinja_env.globals.update(get_class_name=get_class_name)
+    app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    return render_template('rank_woe_death.html', app=app, chars=chars)
+
+@app.route('/ranking/woe_kills')
+def ranking_woe_kills():
+    chars = get_chars_ranks(0,20, '`woe_kills`')
+    app.jinja_env.globals.update(get_class_name=get_class_name)
+    app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    return render_template('rank_woe_kills.html', app=app, chars=chars)
 
 @app.route('/guild/<int:guild_id>')
 def show_guild(guild_id):
@@ -114,7 +149,7 @@ def show_guild(guild_id):
     chars = get_guild_members(guild_id)
     app.jinja_env.globals.update(get_guild_members_count=get_guild_members_count)
     app.jinja_env.globals.update(get_class_name=get_class_name)
-    return render_template('info_guild.html', error=error, app=app, guild=guild, chars=chars)
+    return render_template('info_guild.html', app=app, guild=guild, chars=chars)
 
 @app.route('/char/<int:char_id>')
 def show_char(char_id):
@@ -122,40 +157,5 @@ def show_char(char_id):
     app.jinja_env.globals.update(get_class_name=get_class_name)
     app.jinja_env.globals.update(get_party_name=get_party_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
-    return render_template('info_char.html', error=error, app=app, char=char)
-
-@app.route('/ranking/zeny')
-def ranking_zeny():
-    chars = get_chars_ranks(0,20, '`zeny`')
-    app.jinja_env.globals.update(get_class_name=get_class_name)
-    app.jinja_env.globals.update(get_guild_name=get_guild_name)
-    return render_template('rank_zeny.html', error=error, app=app, chars=chars)
-
-@app.route('/ranking/pvp_death')
-def ranking_pvp_death():
-    chars = get_chars_ranks(0,20, '`pvp_death`')
-    app.jinja_env.globals.update(get_class_name=get_class_name)
-    app.jinja_env.globals.update(get_guild_name=get_guild_name)
-    return render_template('rank_pvp_death.html', error=error, app=app, chars=chars)
-
-@app.route('/ranking/pvp_kills')
-def ranking_pvp_kills():
-    chars = get_chars_ranks(0,20, '`pvp_kills`')
-    app.jinja_env.globals.update(get_class_name=get_class_name)
-    app.jinja_env.globals.update(get_guild_name=get_guild_name)
-    return render_template('rank_pvp_kills.html', error=error, app=app, chars=chars)
-
-@app.route('/ranking/woe_death')
-def ranking_pvp_death():
-    chars = get_chars_ranks(0,20, '`woe_death`')
-    app.jinja_env.globals.update(get_class_name=get_class_name)
-    app.jinja_env.globals.update(get_guild_name=get_guild_name)
-    return render_template('rank_woe_death.html', error=error, app=app, chars=chars)
-
-@app.route('/ranking/woe_kills')
-def ranking_pvp_death():
-    chars = get_chars_ranks(0,20, '`woe_kills`')
-    app.jinja_env.globals.update(get_class_name=get_class_name)
-    app.jinja_env.globals.update(get_guild_name=get_guild_name)
-    return render_template('rank_woe_kills.html', error=error, app=app, chars=chars)
+    return render_template('info_char.html', app=app, char=char)
 
