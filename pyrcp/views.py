@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+import io
 from pyrcp import app
 from pyrcp.funcs import *
 from pyrcp.user import *
-from flask import Flask, request, redirect, render_template, flash, url_for
+from flask import Flask, request, Response, redirect, render_template, flash, url_for, make_response, send_file
 from flask_login import (LoginManager, login_required, login_user,
                          current_user, logout_user, UserMixin)
 from itsdangerous import URLSafeTimedSerializer
@@ -159,3 +160,27 @@ def show_char(char_id):
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
     return render_template('info_char.html', app=app, char=char)
 
+'''
+    Additional pages
+'''
+@app.route("/guild_icon/<int:gid>.png")
+def show_guild_icon(gid):
+    from binascii import unhexlify
+    import zlib
+    from PIL import Image
+    from cStringIO import StringIO
+
+    db = pydb.get_db()
+    cursor = db.cursor()
+    sql = "SELECT `emblem_data`, `emblem_len` FROM `guild` WHERE `guild_id` = %s;"
+    cur = cursor.execute(sql % (gid))
+    image = cursor.fetchone()
+    data = StringIO(zlib.decompress(unhexlify(image[0])))
+    i = Image.open(data)
+    output = StringIO()
+    format = 'PNG'
+    i.save(output, format)
+    resp = make_response(output.getvalue())
+    output.close()
+    resp.headers['Content-Type'] = 'image/png'
+    return resp

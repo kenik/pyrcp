@@ -31,7 +31,7 @@
                 <TD><STRONG><a href="{{ url_for('show_char', char_id=char.0) }}" title="{{ char.1 }}">{{ char.1 }}</a></STRONG></TD>
                 <TD>{{ get_class_name(char.2) }}</TD>
                 {% if char.2 %}
-                <TD width="24"><IMG src="http://brianluau.users.sourceforge.net/demo/fluxcp/guild/emblem/?login=Demo-RO&amp;charmap=Demo-RO&amp;id=7"></TD>
+                <TD width="24"><IMG src="{{ url_for('show_guild_icon', gid=char.3) }}"></TD>
                 <TD>{{ get_guild_name(char.3) }}</TD>
                 {% else %}
                 <TD colspan="2">None</TD>
