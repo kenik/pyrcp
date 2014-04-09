@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import pyrcp.db as pydb
+from PIL import Image
 def get_class_name(classid):
     classes = {
         0: 'Novice',
@@ -189,7 +190,7 @@ def get_guild_info(guild_id):
         guild[4] - Guild LVL
         guild[5] - Guildmembers's average level
         guild[6] - Guild Exp
-        guild[6] - Emblem Length
+        guild[7] - Emblem Length
     '''
     sql = "SELECT `guild_id`, `name`, `char_id`, `master`, `guild_lv`, `average_lv`, `exp`, `emblem_len` FROM `guild` WHERE `guild_id`=%s"
     cur = cursor.execute(sql % (guild_id))
@@ -273,3 +274,21 @@ def get_char_info(char_id):
     cur = cursor.execute(sql % (char_id))
     chars = cursor.fetchone()
     return chars
+
+'''
+    Image functions
+'''
+def pink_to_transparent(data):
+    img = Image.open(data)
+    img = img.convert("RGBA")
+    datas = img.getdata()
+
+    newData = []
+    for item in datas:
+        if item[0] == 255 and item[1] == 0 and item[2] == 255:
+            newData.append((255, 255, 255, 0))
+        else:
+            newData.append(item)
+    #return newData
+    img.putdata(newData)
+    return img

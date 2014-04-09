@@ -169,7 +169,7 @@ def show_char(char_id):
 def show_guild_icon(gid):
     from binascii import unhexlify
     import zlib
-    from PIL import Image, ImageDraw
+    from PIL import Image
     from cStringIO import StringIO
 
     db = pydb.get_db()
@@ -179,7 +179,9 @@ def show_guild_icon(gid):
     image = cursor.fetchone()
     if image[1] > 0:
         data = StringIO(zlib.decompress(unhexlify(image[0])))
-        i = Image.open(data)
+        #i = Image.open(data)
+        #i.putdata(pink_to_transparent(data))
+        i = pink_to_transparent(data)
         output = StringIO()
         format = 'PNG'
         i.save(output, format)
