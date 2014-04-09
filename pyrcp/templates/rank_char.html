@@ -30,11 +30,15 @@
                 <TD align="right">{{ loop.index }}</TD>
                 <TD><STRONG><a href="{{ url_for('show_char', char_id=char.0) }}" title="{{ char.1 }}">{{ char.1 }}</a></STRONG></TD>
                 <TD>{{ get_class_name(char.2) }}</TD>
-                {% if char.2 %}
-                <TD width="24"><IMG src="{{ url_for('show_guild_icon', gid=char.3) }}"></TD>
-                <TD>{{ get_guild_name(char.3) }}</TD>
+                {% if char.3 %}
+                    {% if check_guild_icon(char.3) %}
+                        <TD width="24"><IMG src="{{ url_for('show_guild_icon', gid=char.3) }}"></TD>
+                    {% else %}
+                        <TD width="24"><IMG src="/static/img/empty.png"></TD>
+                    {% endif %}
+                    <TD>{{ get_guild_name(char.3) }}</TD>
                 {% else %}
-                <TD colspan="2">None</TD>
+                <TD height="24px" colspan="2">None</TD>
                 {% endif %}
                 <TD>{{ char.4 }}</TD>
                 <TD>{{ char.5 }}</TD>

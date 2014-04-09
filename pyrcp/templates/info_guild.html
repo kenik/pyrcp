@@ -22,7 +22,11 @@
             <TH>Guild name</TH>
             <TD>{{ guild.1 }}</TD>
             <TH>Guild Emblem</TH>
-            <TD><IMG src="http://brianluau.users.sourceforge.net/demo/fluxcp/guild/emblem/?login=Demo-RO&amp;charmap=Demo-RO&amp;id=7"></TD>
+            {% if guild.7 %}
+            <TD><IMG src="{{ url_for('show_guild_icon', gid=guild.0) }}"></TD>
+            {% else %}
+            <TD><IMG src="/static/img/empty.png"></TD>
+            {% endif %}
           </TR>
           <TR>
             <TH>Guildmaster</TH>

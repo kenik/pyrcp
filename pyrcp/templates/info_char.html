@@ -53,9 +53,13 @@
           </TR>
           <TR>
             <TH>Guild</TH>
-            {% if char.3 %}
-                <TD width="24"><IMG src="http://brianluau.users.sourceforge.net/demo/fluxcp/guild/emblem/?login=Demo-RO&amp;charmap=Demo-RO&amp;id=7"></TD>
-                <TD><a href="{{ url_for('show_guild', guild_id=char.3) }}">{{ get_guild_name(char.3) }}</a></TD>
+           {% if char.3 %}
+                {% if check_guild_icon(char.3) %}
+                    <TD width="24"><IMG src="{{ url_for('show_guild_icon', gid=char.3) }}"></TD>
+                {% else %}
+                    <TD width="24"><IMG src="/static/img/empty.png"></TD>
+                {% endif %}
+                <TD>{{ get_guild_name(char.3) }}</TD>
             {% else %}
             <TD colspan="2">None
             </TD>

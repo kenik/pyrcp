@@ -145,8 +145,9 @@ def get_guilds_ranks():
         guilds[4] - Guild LVL
         guilds[5] - Guildmembers's average level
         guilds[6] - Guild Exp
+        guilds[7] - Guild Exp
     '''
-    sql = "SELECT `guild_id`, `name`, `char_id`, `master`, `guild_lv`, `average_lv`, `exp` FROM `guild` ORDER BY `guild_lv` DESC LIMIT 0, 20 "
+    sql = "SELECT `guild_id`, `name`, `char_id`, `master`, `guild_lv`, `average_lv`, `exp`, `emblem_len` FROM `guild` ORDER BY `guild_lv` DESC LIMIT 0, 20 "
     cur = cursor.execute(sql)
     guilds = cursor.fetchall()
     return guilds
@@ -188,11 +189,32 @@ def get_guild_info(guild_id):
         guild[4] - Guild LVL
         guild[5] - Guildmembers's average level
         guild[6] - Guild Exp
+        guild[6] - Emblem Length
     '''
-    sql = "SELECT `guild_id`, `name`, `char_id`, `master`, `guild_lv`, `average_lv`, `exp` FROM `guild` ORDER BY `guild_lv` DESC LIMIT 0, 20 "
-    cur = cursor.execute(sql)
+    sql = "SELECT `guild_id`, `name`, `char_id`, `master`, `guild_lv`, `average_lv`, `exp`, `emblem_len` FROM `guild` WHERE `guild_id`=%s"
+    cur = cursor.execute(sql % (guild_id))
     guild = cursor.fetchone()
     return guild
+
+def check_guild_icon(guild_id):
+    db = pydb.get_db()
+    cursor = db.cursor()
+    '''
+        guild[0] - Guild ID
+        guild[1] - Guild Name
+        guild[2] - Guildmaster ID
+        guild[3] - Guildmaster Name
+        guild[4] - Guild LVL
+        guild[5] - Guildmembers's average level
+        guild[6] - Guild Exp
+    '''
+    sql = "SELECT `emblem_len` FROM `guild` WHERE `guild_id`=%s "
+    cur = cursor.execute(sql % (guild_id))
+    guild = cursor.fetchone()
+    if guild[0] > 0:
+        return True
+    else:
+        return False
 
 def get_guild_name(guild_id):
     db = pydb.get_db()
