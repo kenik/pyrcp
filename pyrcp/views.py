@@ -19,11 +19,7 @@ def load_user_i():
 # Шаблоны и страницы
 @app.route('/')
 def show_main():
-    if current_user.get_id():
-        user = current_user
-    else:
-        user = None
-    userser = current_user
+    user = current_user
     return render_template('show_main.html', app=app, user=user)
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -115,6 +111,7 @@ def ranking_zeny():
     chars = get_chars_ranks(0,20, '`zeny`')
     app.jinja_env.globals.update(get_class_name=get_class_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    app.jinja_env.globals.update(check_guild_icon=check_guild_icon)
     return render_template('rank_zeny.html', app=app, chars=chars)
 
 @app.route('/ranking/pvp_death')
@@ -122,6 +119,7 @@ def ranking_pvp_death():
     chars = get_chars_ranks(0,20, '`pvp_death`')
     app.jinja_env.globals.update(get_class_name=get_class_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    app.jinja_env.globals.update(check_guild_icon=check_guild_icon)
     return render_template('rank_pvp_death.html', app=app, chars=chars)
 
 @app.route('/ranking/pvp_kills')
@@ -129,6 +127,7 @@ def ranking_pvp_kills():
     chars = get_chars_ranks(0,20, '`pvp_kills`')
     app.jinja_env.globals.update(get_class_name=get_class_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    app.jinja_env.globals.update(check_guild_icon=check_guild_icon)
     return render_template('rank_pvp_kills.html', app=app, chars=chars)
 
 @app.route('/ranking/woe_death')
@@ -136,6 +135,7 @@ def ranking_woe_death():
     chars = get_chars_ranks(0,20, '`woe_death`')
     app.jinja_env.globals.update(get_class_name=get_class_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    app.jinja_env.globals.update(check_guild_icon=check_guild_icon)
     return render_template('rank_woe_death.html', app=app, chars=chars)
 
 @app.route('/ranking/woe_kills')
@@ -143,6 +143,7 @@ def ranking_woe_kills():
     chars = get_chars_ranks(0,20, '`woe_kills`')
     app.jinja_env.globals.update(get_class_name=get_class_name)
     app.jinja_env.globals.update(get_guild_name=get_guild_name)
+    app.jinja_env.globals.update(check_guild_icon=check_guild_icon)
     return render_template('rank_woe_kills.html', app=app, chars=chars)
 
 @app.route('/guild/<int:guild_id>')
@@ -191,3 +192,10 @@ def show_guild_icon(gid):
         return resp
     else:
         return redirect("/")
+
+'''
+    404 Not found error page
+'''
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', app=app), 404

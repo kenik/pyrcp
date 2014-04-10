@@ -4,7 +4,7 @@ from pyrcp import *
 import pyrcp.db as pydb
 from flask import Flask, request, redirect, render_template
 from flask_login import (LoginManager, login_required, login_user,
-                         current_user, logout_user, UserMixin)
+                         current_user, logout_user, UserMixin, AnonymousUserMixin)
 from itsdangerous import URLSafeTimedSerializer
 
 login_serializer = URLSafeTimedSerializer(app.secret_key)
@@ -46,6 +46,27 @@ class User(UserMixin):
 
     def get_id(self):
         return self.id
+
+    def is_anonymous(self):
+        return False
+
+    def is_authenticated(self):
+        return True
+
+class AnonymousUser(AnonymousUserMixin):
+    def __init__(self):
+        self.id = 'Guest'
+
+    def get_id(self):
+        return self.id
+
+    def is_anonymous(self):
+        return True
+
+    def is_authenticated(self):
+        return False
+
+
 def hash_pass(password):
     return md5(password).hexdigest()
 

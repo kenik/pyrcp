@@ -285,7 +285,7 @@ def pink_to_transparent(data):
 
     newData = []
     for item in datas:
-        if item[0] == 255 and item[1] == 0 and item[2] == 255:
+        if item[0] == 255 and item[1] <= 10 and item[2] == 255 or item[0] == 252 and item[1] <= 10 and item[2] == 252:
             newData.append((255, 255, 255, 0))
         else:
             newData.append(item)

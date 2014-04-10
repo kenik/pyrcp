@@ -5,7 +5,7 @@
     <!-- Sub menu -->
         <DIV id="submenu">Menu:
             <A class="sub-menu-item" href="{{ url_for('ranking_char') }}">Character Ranking</A> /
-            <A class="sub-menu-item" href="{{ url_for('ranking_guild') }}">char Ranking</A> /
+            <A class="sub-menu-item" href="{{ url_for('ranking_guild') }}">Guild Ranking</A> /
             <A class="sub-menu-item current-sub-menu" href="{{ url_for('ranking_zeny') }}">Zeny Ranking</A> /
             <A class="sub-menu-item" href="{{ url_for('ranking_pvp_death') }}">PvP Death Ranking</A> /
             <A class="sub-menu-item" href="{{ url_for('ranking_pvp_kills') }}">PvP Kills Ranking</A> /
@@ -34,11 +34,15 @@
                 <TD>{{ get_class_name(char.2) }}</TD>
                 <TD>{{ char.4 }}</TD>
                 <TD>{{ char.5 }}</TD>
-                {% if char.2 %}
-                <TD width="24"><IMG src="http://brianluau.users.sourceforge.net/demo/fluxcp/guild/emblem/?login=Demo-RO&amp;charmap=Demo-RO&amp;id=7"></TD>
-                <TD>{{ get_guild_name(char.3) }}</TD>
+                {% if char.3 %}
+                    {% if check_guild_icon(char.3) %}
+                        <TD width="24"><IMG src="{{ url_for('show_guild_icon', gid=char.3) }}"></TD>
+                    {% else %}
+                        <TD width="24"><IMG src="/static/img/empty.png"></TD>
+                    {% endif %}
+                    <TD>{{ get_guild_name(char.3) }}</TD>
                 {% else %}
-                <TD colspan="2">None</TD>
+                <TD height="24px" colspan="2">None</TD>
                 {% endif %}
               </TR>
             {% endfor %}
