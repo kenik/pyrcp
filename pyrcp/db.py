@@ -15,7 +15,6 @@ def get_db():
     return g.mysql_db
 
 def get_cursor():
-    """Открываем соединение, если оно еще не было открыто."""
     db = get_db()
     return db.cursor()
 
