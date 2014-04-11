@@ -22,7 +22,7 @@ login_manager.login_view = "login"
 
 @login_manager.user_loader
 def load_user(userid):
-    login_manager.anonymous_user = Anonymous
+    login_manager.anonymous_user = AnonymousUser()
     return User.get(userid)
 
 @login_manager.token_loader

@@ -122,8 +122,7 @@ def get_class_name(classid):
     return result
 
 def get_party_name(party_id):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     sql = "SELECT `name` FROM `party` WHERE `party_id` = '%s' "
     cur = cursor.execute(sql % (party_id))
     if cur == 1:
@@ -136,8 +135,7 @@ def get_party_name(party_id):
     Ranking functions
 '''
 def get_guilds_ranks():
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     '''
         guilds[0] - Guild ID
         guilds[1] - Guild Name
@@ -154,8 +152,7 @@ def get_guilds_ranks():
     return guilds
 
 def get_guild_members_count(guild_id):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     sql = "SELECT COUNT(`char_id`) FROM `char` WHERE `guild_id`='%s' "
     cur = cursor.execute(sql % (guild_id))
     if cur:
@@ -163,8 +160,7 @@ def get_guild_members_count(guild_id):
     return count[0]
 
 def get_guild_members(guild_id):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     '''
         chars[0] - Char ID
         chars[1] - Char Name
@@ -180,8 +176,7 @@ def get_guild_members(guild_id):
     return chars
 
 def get_guild_info(guild_id):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     '''
         guild[0] - Guild ID
         guild[1] - Guild Name
@@ -198,8 +193,7 @@ def get_guild_info(guild_id):
     return guild
 
 def check_guild_icon(guild_id):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     '''
         guild[0] - Guild ID
         guild[1] - Guild Name
@@ -218,8 +212,7 @@ def check_guild_icon(guild_id):
         return False
 
 def get_guild_name(guild_id):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     sql = "SELECT `name` FROM `guild` WHERE `guild_id` = '%s' "
     cur = cursor.execute(sql % (guild_id))
     if cur == 1:
@@ -230,8 +223,7 @@ def get_guild_name(guild_id):
     return guild
 
 def get_chars_ranks(start=0,count=20, order='`base_level`'):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     '''
         chars[0] - Char ID
         chars[1] - Char Name
@@ -252,8 +244,7 @@ def get_chars_ranks(start=0,count=20, order='`base_level`'):
     return chars
 
 def get_char_info(char_id):
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     '''
         chars[0] - Char ID
         chars[1] - Char Name

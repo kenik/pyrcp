@@ -46,8 +46,7 @@ def my_acc():
     error = None
     if current_user.get_id():
         userid = current_user.get_acc_id()
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     sql = "SELECT `name`, `class`, `guild_id`, `base_level`, `job_level`, `base_exp`, `job_exp` from `char` where `account_id`='%s' "
     cur = cursor.execute(sql % (userid))
     if cur == 0:
@@ -173,8 +172,7 @@ def show_guild_icon(gid):
     from PIL import Image
     from cStringIO import StringIO
 
-    db = pydb.get_db()
-    cursor = db.cursor()
+    cursor = pydb.get_cursor()
     sql = "SELECT `emblem_data`, `emblem_len` FROM `guild` WHERE `guild_id` = %s;"
     cur = cursor.execute(sql % (gid))
     image = cursor.fetchone()
