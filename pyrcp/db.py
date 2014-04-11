@@ -16,9 +16,7 @@ def get_db():
 
 def get_cursor():
     """Открываем соединение, если оно еще не было открыто."""
-    if not hasattr(g, 'mysql_db'):
-        g.mysql_db = connect_db()
-    db = g.mysql_db
+    db = get_db()
     return db.cursor()
 
 @app.teardown_appcontext
